@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "212745661813",
+    "firebase_url": "https://hugspace-6b415-default-rtdb.firebaseio.com",
+    "project_id": "hugspace-6b415",
+    "storage_bucket": "hugspace-6b415.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212745661813:android:b1e58a2505400511d6773c",
+        "android_client_info": {
+          "package_name": "com.khayelihle.hugspace"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuVVnDmcjouSBuESE54uJ66mkUbCOluAM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
