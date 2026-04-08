@@ -80,7 +80,7 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
             flexibleSpace: FlexibleSpaceBar(
               collapseMode: CollapseMode.pin,
               background: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -101,7 +101,7 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                   children: [
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           'hugspace',
                           style: TextStyle(
                             fontFamily: 'Playfair Display',
@@ -127,7 +127,7 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                             ),
                             child: Text(
                               '🌸 $_sessionName',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontFamily: 'Nunito',
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
@@ -138,7 +138,7 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                       ],
                     ),
                     const SizedBox(height: 4),
-                    Text(
+                    const Text(
                       'a warm space to be heard 🤍',
                       style: TextStyle(
                         fontFamily: 'Nunito',
@@ -213,7 +213,7 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                   width: 64,
                   height: 64,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                       colors: [AppColors.deepRose, AppColors.warmCoral],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -248,7 +248,7 @@ class _LoadingState extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('🌸', style: const TextStyle(fontSize: 40))
+          const Text('🌸', style: TextStyle(fontSize: 40))
               .animate(onPlay: (c) => c.repeat())
               .scale(
                   begin: const Offset(0.8, 0.8),
@@ -260,7 +260,7 @@ class _LoadingState extends StatelessWidget {
                   end: const Offset(0.8, 0.8),
                   duration: 1000.ms),
           const SizedBox(height: 16),
-          Text(
+          const Text(
             'gathering warmth...',
             style: TextStyle(
                 fontFamily: 'Nunito',
@@ -289,7 +289,7 @@ class _ErrorState extends StatelessWidget {
           children: [
             const Text('💔', style: TextStyle(fontSize: 48)),
             const SizedBox(height: 16),
-            Text(
+            const Text(
               'Something went quiet...',
               style: TextStyle(
                 fontFamily: 'Playfair Display',
@@ -308,7 +308,7 @@ class _ErrorState extends StatelessWidget {
               child: Text(
                 error,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Nunito',
                   fontSize: 12,
                   color: AppColors.deepRose,
@@ -334,11 +334,11 @@ class _EmptyState extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('🌙', style: const TextStyle(fontSize: 56))
+          const Text('🌙', style: TextStyle(fontSize: 56))
               .animate()
               .fadeIn(duration: 600.ms),
           const SizedBox(height: 20),
-          Text(
+          const Text(
             'It\'s quiet here',
             style: TextStyle(
               fontFamily: 'Playfair Display',
@@ -348,7 +348,7 @@ class _EmptyState extends StatelessWidget {
             ),
           ).animate().fadeIn(duration: 600.ms, delay: 100.ms),
           const SizedBox(height: 8),
-          Text(
+          const Text(
             'Be the first to share what\'s\non your heart today.',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -364,7 +364,7 @@ class _EmptyState extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
+                gradient: const LinearGradient(
                     colors: [AppColors.deepRose, AppColors.warmCoral]),
                 borderRadius: BorderRadius.circular(30),
                 boxShadow: [
@@ -375,7 +375,7 @@ class _EmptyState extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Text(
+              child: const Text(
                 'Share how you feel 🤍',
                 style: TextStyle(
                   fontFamily: 'Nunito',
