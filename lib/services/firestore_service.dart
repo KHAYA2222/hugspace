@@ -7,15 +7,20 @@ class FirestoreService {
   static final FirebaseFirestore _db = FirebaseFirestore.instance;
   static const String _postsCollection = 'posts';
 
-  // ── Stream of live posts (excluding expired) ──────────────────────────────
+  // ── Stream of live posts ──────────────────────────────────────────────────
   static Stream<List<PostModel>> postsStream() {
     return _db
         .collection(_postsCollection)
-        .where('expiresAt', isGreaterThan: Timestamp.now())
-        .orderBy('expiresAt', descending: false)
         .orderBy('createdAt', descending: true)
+        .limit(50)
         .snapshots()
-        .map((snap) => snap.docs.map(PostModel.fromFirestore).toList());
+        .map((snap) {
+      final now = DateTime.now();
+      return snap.docs
+          .map(PostModel.fromFirestore)
+          .where((p) => p.expiresAt.isAfter(now))
+          .toList();
+    });
   }
 
   // ── Create a new post ─────────────────────────────────────────────────────
@@ -35,9 +40,7 @@ class FirestoreService {
       expiresAt: now.add(const Duration(hours: 48)),
     );
 
-    final ref = await _db
-        .collection(_postsCollection)
-        .add(post.toFirestore());
+    final ref = await _db.collection(_postsCollection).add(post.toFirestore());
 
     return ref.id;
   }
