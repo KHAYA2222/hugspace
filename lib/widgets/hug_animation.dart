@@ -139,7 +139,8 @@ class _HugRainPainter extends CustomPainter {
       final tp = TextPainter(
         text: TextSpan(
           text: p.emoji,
-          style: TextStyle(fontSize: p.size, color: Colors.white.withOpacity(p.opacity)),
+          style: TextStyle(
+              fontSize: p.size, color: Colors.white.withOpacity(p.opacity)),
         ),
         textDirection: TextDirection.ltr,
       );
@@ -201,7 +202,8 @@ class _HugButtonState extends State<HugButton> with TickerProviderStateMixin {
     _scaleAnim = TweenSequence([
       TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.3), weight: 40),
       TweenSequenceItem(tween: Tween(begin: 1.3, end: 1.0), weight: 60),
-    ]).animate(CurvedAnimation(parent: _scaleController, curve: Curves.easeOut));
+    ]).animate(
+        CurvedAnimation(parent: _scaleController, curve: Curves.easeOut));
 
     _rippleAnim = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: _rippleController, curve: Curves.easeOut),
@@ -296,7 +298,7 @@ class _HugButtonState extends State<HugButton> with TickerProviderStateMixin {
                 ? 'be the first to hug'
                 : '${widget.hugCount} hug${widget.hugCount == 1 ? '' : 's'}',
             key: ValueKey(widget.hugCount),
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: 'Nunito',
               fontSize: 12,
               color: AppColors.mutedTaupe,
@@ -325,9 +327,7 @@ class _HugButtonState extends State<HugButton> with TickerProviderStateMixin {
                 ),
               ),
               child: Text(
-                widget.acknowledged
-                    ? '🤍 I needed that'
-                    : 'I needed that 🤍',
+                widget.acknowledged ? '🤍 I needed that' : 'I needed that 🤍',
                 style: TextStyle(
                   fontFamily: 'Nunito',
                   fontSize: 13,

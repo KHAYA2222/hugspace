@@ -58,7 +58,7 @@ class _ShareSheetState extends State<ShareSheet> {
         setState(() => _isPosting = false);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(
+            content: const Text(
               'Something went wrong 🤍 Please try again',
               style: TextStyle(fontFamily: 'Nunito'),
             ),
@@ -105,7 +105,7 @@ class _ShareSheetState extends State<ShareSheet> {
           const SizedBox(height: 24),
 
           // Title
-          Text(
+          const Text(
             'What\'s on your heart?',
             style: TextStyle(
               fontFamily: 'Playfair Display',
@@ -119,7 +119,7 @@ class _ShareSheetState extends State<ShareSheet> {
 
           Text(
             'Sharing as ${widget.sessionName} · vanishes in 48h',
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: 'Nunito',
               fontSize: 13,
               color: AppColors.mutedTaupe,
@@ -129,7 +129,7 @@ class _ShareSheetState extends State<ShareSheet> {
           const SizedBox(height: 20),
 
           // Feeling chips
-          Text(
+          const Text(
             'I\'m feeling...',
             style: TextStyle(
               fontFamily: 'Nunito',
@@ -158,9 +158,8 @@ class _ShareSheetState extends State<ShareSheet> {
                     color: isSelected ? AppColors.deepRose : AppColors.blush,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: isSelected
-                          ? AppColors.deepRose
-                          : AppColors.roseMist,
+                      color:
+                          isSelected ? AppColors.deepRose : AppColors.roseMist,
                     ),
                   ),
                   child: Row(
@@ -195,9 +194,12 @@ class _ShareSheetState extends State<ShareSheet> {
                 maxLines: 5,
                 minLines: 3,
                 maxLength: _maxChars,
-                buildCounter: (_, {required currentLength, required isFocused, maxLength}) =>
+                buildCounter: (_,
+                        {required currentLength,
+                        required isFocused,
+                        maxLength}) =>
                     null,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Nunito',
                   fontSize: 15,
                   color: AppColors.softCharcoal,
@@ -214,7 +216,7 @@ class _ShareSheetState extends State<ShareSheet> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: AppColors.softRose,
                       width: 2,
                     ),
@@ -263,7 +265,7 @@ class _ShareSheetState extends State<ShareSheet> {
                   elevation: 0,
                 ),
                 child: _isPosting
-                    ? SizedBox(
+                    ? const SizedBox(
                         width: 22,
                         height: 22,
                         child: CircularProgressIndicator(
@@ -271,7 +273,7 @@ class _ShareSheetState extends State<ShareSheet> {
                           color: Colors.white,
                         ),
                       )
-                    : Text(
+                    : const Text(
                         'Share with the world 🤍',
                         style: TextStyle(
                           fontFamily: 'Nunito',

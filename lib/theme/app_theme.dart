@@ -36,7 +36,7 @@ class AppTheme {
   static ThemeData get theme {
     return ThemeData(
       useMaterial3: true,
-      colorScheme: ColorScheme(
+      colorScheme: const ColorScheme(
         brightness: Brightness.light,
         primary: AppColors.deepRose,
         onPrimary: Colors.white,
@@ -44,8 +44,6 @@ class AppTheme {
         onSecondary: Colors.white,
         error: Colors.red,
         onError: Colors.white,
-        background: AppColors.creamWhite,
-        onBackground: AppColors.softCharcoal,
         surface: Colors.white,
         onSurface: AppColors.softCharcoal,
       ),
@@ -114,7 +112,7 @@ class AppTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
-          borderSide: BorderSide(color: AppColors.softRose, width: 2),
+          borderSide: const BorderSide(color: AppColors.softRose, width: 2),
         ),
         hintStyle: GoogleFonts.nunito(
           color: AppColors.mutedTaupe,

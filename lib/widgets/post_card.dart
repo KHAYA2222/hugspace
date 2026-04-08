@@ -56,14 +56,22 @@ class _PostCardState extends State<PostCard> {
 
   Color get _feelingColor {
     switch (widget.post.feeling) {
-      case Feeling.overwhelmed: return const Color(0xFFB0C4DE);
-      case Feeling.heartbroken: return const Color(0xFFFFB3C6);
-      case Feeling.anxious: return const Color(0xFFDEB0E0);
-      case Feeling.lonely: return const Color(0xFFB0D4DE);
-      case Feeling.exhausted: return const Color(0xFFDEB0B0);
-      case Feeling.hopeful: return const Color(0xFFB0DEB8);
-      case Feeling.grateful: return const Color(0xFFDED8B0);
-      default: return AppColors.roseMist;
+      case Feeling.overwhelmed:
+        return const Color(0xFFB0C4DE);
+      case Feeling.heartbroken:
+        return const Color(0xFFFFB3C6);
+      case Feeling.anxious:
+        return const Color(0xFFDEB0E0);
+      case Feeling.lonely:
+        return const Color(0xFFB0D4DE);
+      case Feeling.exhausted:
+        return const Color(0xFFDEB0B0);
+      case Feeling.hopeful:
+        return const Color(0xFFB0DEB8);
+      case Feeling.grateful:
+        return const Color(0xFFDED8B0);
+      default:
+        return AppColors.roseMist;
     }
   }
 
@@ -111,7 +119,8 @@ class _PostCardState extends State<PostCard> {
               children: [
                 // Top bar with feeling tag
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
                   decoration: BoxDecoration(
                     color: _feelingColor.withOpacity(0.2),
                     borderRadius: const BorderRadius.only(
@@ -144,7 +153,7 @@ class _PostCardState extends State<PostCard> {
                             children: [
                               Text(
                                 widget.post.authorName,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontFamily: 'Nunito',
                                   fontSize: 13,
                                   fontWeight: FontWeight.w700,
@@ -153,7 +162,7 @@ class _PostCardState extends State<PostCard> {
                               ),
                               Text(
                                 'feeling ${widget.post.feeling.label}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontFamily: 'Nunito',
                                   fontSize: 11,
                                   color: AppColors.warmGray,
@@ -170,7 +179,7 @@ class _PostCardState extends State<PostCard> {
                         children: [
                           Text(
                             timeago.format(widget.post.createdAt),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 11,
                               color: AppColors.mutedTaupe,
@@ -178,7 +187,7 @@ class _PostCardState extends State<PostCard> {
                           ),
                           Text(
                             _timeRemaining,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 10,
                               color: AppColors.softRose,
@@ -196,7 +205,7 @@ class _PostCardState extends State<PostCard> {
                   padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
                   child: Text(
                     widget.post.content,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'Nunito',
                       fontSize: 15,
                       height: 1.7,
@@ -223,7 +232,8 @@ class _PostCardState extends State<PostCard> {
                       onHug: _sendHug,
                       acknowledged: widget.post.needsThat,
                       onAcknowledge: widget.isOwnPost
-                          ? () => FirestoreService.acknowledgeHugs(widget.post.id)
+                          ? () =>
+                              FirestoreService.acknowledgeHugs(widget.post.id)
                           : null,
                     ),
                   ),

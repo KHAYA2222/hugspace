@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   String _generatedName = '';
   bool _nameReady = false;
-  bool _isFirstVisit = false;
+  final bool _isFirstVisit = false;
 
   @override
   void initState() {
@@ -75,15 +75,17 @@ class _SplashScreenState extends State<SplashScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Animated heart/hug emoji
-              Text('🫂', style: const TextStyle(fontSize: 72))
+              const Text('🫂', style: TextStyle(fontSize: 72))
                   .animate()
-                  .scale(begin: const Offset(0.5, 0.5), duration: 800.ms,
+                  .scale(
+                      begin: const Offset(0.5, 0.5),
+                      duration: 800.ms,
                       curve: Curves.elasticOut)
                   .fadeIn(duration: 400.ms),
 
               const SizedBox(height: 24),
 
-              Text(
+              const Text(
                 'hugspace',
                 style: TextStyle(
                   fontFamily: 'Playfair Display',
@@ -92,12 +94,14 @@ class _SplashScreenState extends State<SplashScreen>
                   color: AppColors.deepRose,
                   letterSpacing: -1,
                 ),
-              ).animate().fadeIn(duration: 600.ms, delay: 400.ms)
+              )
+                  .animate()
+                  .fadeIn(duration: 600.ms, delay: 400.ms)
                   .slideY(begin: 0.2, end: 0, delay: 400.ms),
 
               const SizedBox(height: 8),
 
-              Text(
+              const Text(
                 'a warm space to be heard',
                 style: TextStyle(
                   fontFamily: 'Nunito',
@@ -110,7 +114,7 @@ class _SplashScreenState extends State<SplashScreen>
               const SizedBox(height: 48),
 
               if (_nameReady) ...[
-                Text(
+                const Text(
                   'you arrived as',
                   style: TextStyle(
                     fontFamily: 'Nunito',
@@ -118,9 +122,7 @@ class _SplashScreenState extends State<SplashScreen>
                     color: AppColors.mutedTaupe,
                   ),
                 ).animate().fadeIn(duration: 400.ms, delay: 1000.ms),
-
                 const SizedBox(height: 8),
-
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 24,
@@ -139,20 +141,19 @@ class _SplashScreenState extends State<SplashScreen>
                   ),
                   child: Text(
                     '🌸 $_generatedName',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'Nunito',
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
                       color: AppColors.deepRose,
                     ),
                   ),
-                ).animate().fadeIn(duration: 500.ms, delay: 1200.ms)
-                    .scale(begin: const Offset(0.9, 0.9), delay: 1200.ms,
-                        curve: Curves.easeOut),
-
+                ).animate().fadeIn(duration: 500.ms, delay: 1200.ms).scale(
+                    begin: const Offset(0.9, 0.9),
+                    delay: 1200.ms,
+                    curve: Curves.easeOut),
                 const SizedBox(height: 12),
-
-                Text(
+                const Text(
                   'no names, no judgment, just warmth',
                   style: TextStyle(
                     fontFamily: 'Nunito',
@@ -172,7 +173,7 @@ class _SplashScreenState extends State<SplashScreen>
                     width: 6,
                     height: 6,
                     margin: const EdgeInsets.symmetric(horizontal: 4),
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: AppColors.softRose,
                       shape: BoxShape.circle,
                     ),
