@@ -158,13 +158,6 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
             sliver: StreamBuilder<List<PostModel>>(
               stream: FirestoreService.postsStream(),
               builder: (context, snapshot) {
-                // 🔍 Debug prints
-                print('📡 Connection state: ${snapshot.connectionState}');
-                print('📡 Has error: ${snapshot.hasError}');
-                if (snapshot.hasError)
-                  print('❌ Stream error: ${snapshot.error}');
-                print('📡 Posts count: ${snapshot.data?.length ?? 0}');
-
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return SliverFillRemaining(child: _LoadingState());
                 }
@@ -298,7 +291,6 @@ class _ErrorState extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            // Show the actual error
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
