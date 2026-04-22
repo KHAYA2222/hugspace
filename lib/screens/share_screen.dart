@@ -31,6 +31,18 @@ class _ShareSheetState extends State<ShareSheet> {
     super.initState();
     _controller.addListener(() {
       setState(() => _charCount = _controller.text.length);
+
+      // FIX #1: Auto-scroll to bottom whenever text changes (user is typing),
+      // ensuring the Post button stays visible above the keyboard.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (_scrollController.hasClients) {
+          _scrollController.animateTo(
+            _scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOut,
+          );
+        }
+      });
     });
   }
 
@@ -81,10 +93,13 @@ class _ShareSheetState extends State<ShareSheet> {
 
   @override
   Widget build(BuildContext context) {
+    // FIX #2: Use viewInsets.bottom from MediaQuery so the sheet padding
+    // reacts to the software keyboard height correctly. This only works
+    // reliably when showModalBottomSheet is called with
+    // isScrollControlled: true  (see caller notes at the bottom of this file).
     final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
 
     return Padding(
-      // Pushes the sheet up by the keyboard height
       padding: EdgeInsets.only(bottom: keyboardHeight),
       child: Container(
         decoration: const BoxDecoration(
@@ -94,7 +109,8 @@ class _ShareSheetState extends State<ShareSheet> {
             topRight: Radius.circular(32),
           ),
         ),
-        // Let the sheet grow but never exceed 90% of screen height
+        // FIX #3: Cap sheet at 90 % of screen height so it never grows
+        // taller than the visible area even when the keyboard is up.
         constraints: BoxConstraints(
           maxHeight: MediaQuery.of(context).size.height * 0.90,
         ),
@@ -233,18 +249,23 @@ class _ShareSheetState extends State<ShareSheet> {
                                   required isFocused,
                                   maxLength}) =>
                               null,
-                          // Scroll the sheet up when the text field gains focus
+                          // FIX #4: Increased delay to 500 ms so the keyboard
+                          // is fully expanded before we scroll to the bottom.
+                          // The addListener above handles the typing case, so
+                          // this onTap only needs to handle the initial focus.
                           onTap: () {
-                            Future.delayed(const Duration(milliseconds: 300),
-                                () {
-                              if (_scrollController.hasClients) {
-                                _scrollController.animateTo(
-                                  _scrollController.position.maxScrollExtent,
-                                  duration: const Duration(milliseconds: 300),
-                                  curve: Curves.easeOut,
-                                );
-                              }
-                            });
+                            Future.delayed(
+                              const Duration(milliseconds: 500),
+                              () {
+                                if (_scrollController.hasClients) {
+                                  _scrollController.animateTo(
+                                    _scrollController.position.maxScrollExtent,
+                                    duration: const Duration(milliseconds: 300),
+                                    curve: Curves.easeOut,
+                                  );
+                                }
+                              },
+                            );
                           },
                           style: const TextStyle(
                             fontFamily: 'Nunito',
@@ -343,3 +364,18 @@ class _ShareSheetState extends State<ShareSheet> {
     );
   }
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// IMPORTANT — How to call this sheet from the parent widget:
+//
+//   showModalBottomSheet(
+//     context: context,
+//     isScrollControlled: true,   // ← REQUIRED: lets sheet resize with keyboard
+//     useSafeArea: true,          // ← keeps content above home-indicator
+//     backgroundColor: Colors.transparent,
+//     builder: (_) => ShareSheet(sessionName: sessionName),
+//   );
+//
+// Without isScrollControlled: true the viewInsets padding has no effect and
+// the Post button will be hidden behind the keyboard.
+// ─────────────────────────────────────────────────────────────────────────────
