@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../models/post_model.dart';
 import '../services/firestore_service.dart';
-import '../services/session_service.dart';
 import '../theme/app_theme.dart';
 
 class ShareSheet extends StatefulWidget {
