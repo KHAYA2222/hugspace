@@ -70,20 +70,16 @@ class _ShareSheetState extends State<ShareSheet> {
       );
 
       if (mounted) Navigator.of(context).pop(true);
-    } catch (e) {
+    } catch (e, st) {
+      debugPrint('POST ERROR: $e');
+      debugPrintStack(stackTrace: st);
+
       if (mounted) {
         setState(() => _isPosting = false);
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Text(
-              'Something went wrong 🤍 Please try again',
-              style: TextStyle(fontFamily: 'Nunito'),
-            ),
-            backgroundColor: AppColors.deepRose,
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
+            content: Text(e.toString()),
           ),
         );
       }

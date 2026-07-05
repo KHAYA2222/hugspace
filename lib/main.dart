@@ -3,14 +3,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'firebase_options.dart';
 import 'screens/splash_screen.dart';
 import 'theme/app_theme.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Set status bar style
+  // Status bar styling
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -18,18 +20,56 @@ void main() async {
     ),
   );
 
-  // Lock to portrait
+  // Lock app to portrait mode
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
 
-  // Initialize Firebase
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  try {
+    // Initialize Firebase
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
 
-  runApp(const HugSpaceApp());
+    final auth = FirebaseAuth.instance;
+
+    // Persist login on Web
+    await auth.setPersistence(Persistence.LOCAL);
+
+    // Sign in anonymously if no user exists
+    if (auth.currentUser == null) {
+      await auth.signInAnonymously();
+      debugPrint('Anonymous user signed in');
+    } else {
+      debugPrint(
+        'User already authenticated: ${auth.currentUser!.uid}',
+      );
+    }
+
+    runApp(const HugSpaceApp());
+  } catch (e, st) {
+    debugPrint('FIREBASE INIT ERROR: $e');
+    debugPrintStack(stackTrace: st);
+
+    runApp(
+      MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          body: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Text(
+                'Failed to start HugSpace.\n\n$e',
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 16),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class HugSpaceApp extends StatelessWidget {
