@@ -28,22 +28,38 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   Future<void> _init() async {
-    // FIX #2: `getSessionId()` result was fetched but never used.
-    // Only fetch what you need — the session name.
-    final name = await SessionService.getSessionName();
+    try {
+      debugPrint("Splash started");
 
-    if (mounted) {
-      setState(() {
-        _generatedName = name;
-        _nameReady = true;
-      });
+      final name = await SessionService.getSessionName();
+
+      debugPrint("Session loaded: $name");
+
+      if (mounted) {
+        setState(() {
+          _generatedName = name;
+          _nameReady = true;
+        });
+      }
+    } catch (e, st) {
+      debugPrint("Splash initialization failed");
+      debugPrint(e.toString());
+      debugPrintStack(stackTrace: st);
+
+      if (mounted) {
+        setState(() {
+          _generatedName = "Kind Soul";
+          _nameReady = true;
+        });
+      }
     }
 
-    // IMPROVEMENT: Extended splash to 3200ms so all animations
-    // (including the name card at 1200ms delay) have time to fully
-    // play before the screen transitions away.
+    // Always continue
     await Future.delayed(const Duration(milliseconds: 3200));
-    if (mounted) _goToFeed();
+
+    if (mounted) {
+      _goToFeed();
+    }
   }
 
   void _goToFeed() {
