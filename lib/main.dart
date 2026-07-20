@@ -35,7 +35,9 @@ Future<void> main() async {
     final auth = FirebaseAuth.instance;
 
     // Persist login on Web
-    await auth.setPersistence(Persistence.LOCAL);
+    if (kIsWeb) {
+      await auth.setPersistence(Persistence.LOCAL);
+    }
 
     // Sign in anonymously if no user exists
     if (auth.currentUser == null) {
